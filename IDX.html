@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+<title>IDX — The operating system for experience intelligence.</title>
+<meta name="description" content="IDX is the intelligent operating system for customer and beneficiary experience. Consulting, Voice of Customer, AI quality, and BI — one governed discipline." />
+<meta property="og:title" content="IDX — The operating system for experience intelligence." />
+<meta property="og:type" content="website" />
+<meta name="theme-color" content="#0A0E1A" />
+
+<!-- Fonts: Geist (modern AI-native) + JetBrains Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: {
+            950: '#05070D', 900: '#0A0E1A', 800: '#0F1421', 700: '#161D30',
+            600: '#1E2740', 500: '#2A3355', 400: '#3D4866'
+          },
+          mist: {
+            50:  '#F2F5FC', 100: '#E0E6F5', 200: '#B8C1D9', 300: '#7A85A3', 400: '#4A5577'
+          },
+          cyan:   { DEFAULT: '#00E5FF', deep: '#00B8D4', soft: '#4DFFFE' },
+          azure:  { DEFAULT: '#5B8DEF', deep: '#3B6FD1', soft: '#8AAEF5' },
+          teal:   { DEFAULT: '#00D9B2', deep: '#00A88A', soft: '#4FEDD0' },
+          mint:   { DEFAULT: '#7FFFD4', soft: '#B4FFE5' }
+        },
+        fontFamily: {
+          sans: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+        }
+      }
+    }
+  };
+</script>
+
+<style>
+/* ==========================================================
+   IDX — Dark, futuristic, AI-native operating system
+========================================================== */
+:root {
+  --ink-950:#05070D; --ink-900:#0A0E1A; --ink-800:#0F1421; --ink-700:#161D30;
+  --ink-600:#1E2740; --ink-500:#2A3355; --ink-400:#3D4866;
+  --mist-100:#E0E6F5; --mist-200:#B8C1D9; --mist-300:#7A85A3; --mist-400:#4A5577;
+  --cyan:#00E5FF; --azure:#5B8DEF; --teal:#00D9B2; --mint:#7FFFD4;
+  --grad-cool: linear-gradient(135deg, #00E5FF 0%, #5B8DEF 50%, #7FFFD4 100%);
+  --grad-dim:  linear-gradient(135deg, rgba(0,229,255,0.18) 0%, rgba(91,141,239,0.12) 50%, rgba(127,255,212,0.14) 100%);
+  --edge:      1px solid rgba(184, 193, 217, 0.08);
+  --edge-hot:  1px solid rgba(0, 229, 255, 0.25);
+}
+
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink-900);
+  color: var(--mist-100);
+  font-family: 'Geist', sans-serif;
+  font-feature-settings: 'ss01', 'ss03', 'cv11';
+  overflow-x: hidden;
+}
+
+/* ==== ATMOSPHERIC BACKGROUND ==== */
+.atmo {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(70% 50% at 20% 0%, rgba(0,229,255,0.08) 0%, transparent 60%),
+    radial-gradient(60% 60% at 100% 20%, rgba(91,141,239,0.10) 0%, transparent 55%),
+    radial-gradient(80% 60% at 50% 100%, rgba(0,217,178,0.07) 0%, transparent 60%);
+}
+.grid-overlay {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(184,193,217,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,193,217,0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+.noise {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: screen;
+}
+
+/* ==== TYPOGRAPHY ==== */
+.display { font-family: 'Geist'; font-weight: 500; letter-spacing: -0.035em; line-height: 0.98; }
+.display-bold { font-family: 'Geist'; font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; }
+.mono { font-family: 'JetBrains Mono'; }
+
+.label {
+  font-family: 'JetBrains Mono'; font-size: 0.68rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--mist-300); font-weight: 400;
+}
+.tt-hero    { font-size: clamp(3.25rem, 9vw, 8rem); }
+.tt-section { font-size: clamp(2.25rem, 6vw, 5rem); }
+.tt-sub     { font-size: clamp(1.625rem, 3.5vw, 3rem); }
+
+/* Gradient text */
+.gradient-text {
+  background: var(--grad-cool);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+/* ==== PANELS ==== */
+.panel {
+  background: linear-gradient(180deg, rgba(30,39,64,0.45) 0%, rgba(15,20,33,0.45) 100%);
+  border: var(--edge);
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+}
+.panel-solid {
+  background: var(--ink-800);
+  border: var(--edge);
+  border-radius: 16px;
+}
+
+/* ==== BUTTONS ==== */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  padding: 0.9rem 1.4rem; border-radius: 999px;
+  font-size: 0.925rem; font-weight: 500;
+  transition: all 0.4s cubic-bezier(.2,.8,.2,1);
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--mist-100); color: var(--ink-900);
+  box-shadow: 0 10px 40px -10px rgba(0,229,255,0.4), 0 0 0 1px rgba(255,255,255,0.1);
+  position: relative; overflow: hidden;
+}
+.btn-primary:hover {
+  box-shadow: 0 12px 48px -8px rgba(0,229,255,0.55), 0 0 0 1px rgba(0,229,255,0.4);
+  transform: translateY(-1px);
+}
+.btn-ghost {
+  color: var(--mist-100);
+  border: 1px solid rgba(184,193,217,0.18);
+  background: rgba(184,193,217,0.02);
+}
+.btn-ghost:hover {
+  border-color: var(--cyan);
+  background: rgba(0,229,255,0.06);
+  color: var(--cyan);
+}
+.btn-cyan {
+  background: var(--cyan); color: var(--ink-900);
+  box-shadow: 0 10px 40px -10px rgba(0,229,255,0.6);
+  font-weight: 600;
+}
+.btn-cyan:hover { background: var(--cyan-soft, #4DFFFE); transform: translateY(-1px); }
+
+/* ==== TAGS ==== */
+.tag {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.35rem 0.75rem; border-radius: 999px;
+  background: rgba(0,229,255,0.06);
+  border: 1px solid rgba(0,229,255,0.15);
+  font-family: 'JetBrains Mono'; font-size: 0.65rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cyan);
+}
+.tag-dim {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.35rem 0.75rem; border-radius: 999px;
+  background: rgba(184,193,217,0.04);
+  border: 1px solid rgba(184,193,217,0.08);
+  font-family: 'JetBrains Mono'; font-size: 0.65rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--mist-300);
+}
+
+/* ==== HAIRLINES ==== */
+.hairline-t { border-top: 1px solid rgba(184,193,217,0.06); }
+.hairline-b { border-bottom: 1px solid rgba(184,193,217,0.06); }
+
+/* ==== REVEAL ANIMATIONS ==== */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s cubic-bezier(.2,.8,.2,1), transform 0.9s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-stack > * { opacity: 0; transform: translateY(18px); transition: opacity 0.8s cubic-bezier(.2,.8,.2,1), transform 0.8s cubic-bezier(.2,.8,.2,1); }
+.reveal-stack.in > *:nth-child(1) { transition-delay: 0s; }
+.reveal-stack.in > *:nth-child(2) { transition-delay: 0.06s; }
+.reveal-stack.in > *:nth-child(3) { transition-delay: 0.12s; }
+.reveal-stack.in > *:nth-child(4) { transition-delay: 0.18s; }
+.reveal-stack.in > *:nth-child(5) { transition-delay: 0.24s; }
+.reveal-stack.in > *:nth-child(6) { transition-delay: 0.30s; }
+.reveal-stack.in > *:nth-child(7) { transition-delay: 0.36s; }
+.reveal-stack.in > *:nth-child(8) { transition-delay: 0.42s; }
+.reveal-stack.in > * { opacity: 1; transform: translateY(0); }
+
+/* ==== NAV ==== */
+#nav { transition: all 0.5s cubic-bezier(.2,.8,.2,1); }
+.nav-scrolled {
+  background: rgba(10,14,26,0.72);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(184,193,217,0.06);
+}
+
+/* ==== LINK UNDERLINE HOVER ==== */
+.link-u { position: relative; padding-bottom: 2px; transition: color 0.3s; }
+.link-u::after {
+  content: ''; position: absolute; left: 0; bottom: 0;
+  width: 100%; height: 1px; background: currentColor;
+  transform-origin: right; transform: scaleX(0);
+  transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+}
+.link-u:hover { color: var(--cyan); }
+.link-u:hover::after { transform-origin: left; transform: scaleX(1); }
+
+/* ==== CARD HOVER ==== */
+.card {
+  transition: all 0.5s cubic-bezier(.2,.8,.2,1);
+  position: relative; overflow: hidden;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0,229,255,0.22);
+}
+.card::before {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(0,229,255,0.08), transparent 50%);
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.card:hover::before { opacity: 1; }
+
+/* ==== ANIMATED GRADIENT GLOW ==== */
+@keyframes glow-shift {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(20deg); }
+}
+.glow-shift { animation: glow-shift 8s ease-in-out infinite; }
+
+/* ==== FLOAT ==== */
+@keyframes float-a { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+@keyframes float-b { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
+.float-a { animation: float-a 7s ease-in-out infinite; }
+.float-b { animation: float-b 9s ease-in-out infinite; }
+
+/* ==== DATA VIZ ANIMS ==== */
+.draw { stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: draw 2.5s ease-out forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.bar-grow { transform-origin: bottom; transform: scaleY(0); animation: bar-grow 1.2s cubic-bezier(.2,.8,.2,1) forwards; }
+@keyframes bar-grow { to { transform: scaleY(1); } }
+
+/* ==== LIVE PULSE ==== */
+.pulse-dot { position: relative; }
+.pulse-dot::before {
+  content: ''; position: absolute; inset: -5px; border-radius: 50%;
+  background: currentColor; opacity: 0.3;
+  animation: pulse-ring 1.8s cubic-bezier(0,0,.2,1) infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.6); opacity: 0.5; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ==== MARQUEE ==== */
+.marquee { mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); }
+.marquee-track { animation: marquee 50s linear infinite; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ==== FLOW CONNECTOR ==== */
+.flow-line {
+  stroke-dasharray: 4 6;
+  animation: flow-dash 1.5s linear infinite;
+}
+@keyframes flow-dash { to { stroke-dashoffset: -20; } }
+
+/* ==== INPUT ==== */
+.input {
+  width: 100%; padding: 0.9rem 1rem;
+  background: rgba(184,193,217,0.03);
+  border: 1px solid rgba(184,193,217,0.1);
+  border-radius: 10px;
+  color: var(--mist-100);
+  font-family: 'Geist'; font-size: 0.95rem;
+  transition: all 0.3s;
+}
+.input:focus { outline: none; border-color: var(--cyan); background: rgba(0,229,255,0.04); box-shadow: 0 0 0 3px rgba(0,229,255,0.1); }
+.input::placeholder { color: var(--mist-300); }
+select.input { appearance: none; cursor: pointer; }
+
+/* ==== SCROLLBAR ==== */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--ink-900); }
+::-webkit-scrollbar-thumb { background: var(--ink-600); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
+::selection { background: var(--cyan); color: var(--ink-900); }
+
+/* ==== CAPABILITY GRID ICONS ==== */
+.cap-icon {
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(91,141,239,0.08));
+  border: 1px solid rgba(0,229,255,0.2);
+  color: var(--cyan);
+  transition: all 0.4s;
+}
+.card:hover .cap-icon {
+  background: linear-gradient(135deg, rgba(0,229,255,0.22), rgba(91,141,239,0.18));
+  border-color: var(--cyan);
+  transform: scale(1.05);
+}
+
+/* ==== PRODUCT SHOWCASE ==== */
+.product-glow {
+  position: absolute; inset: -1px;
+  background: linear-gradient(135deg, rgba(0,229,255,0.25), rgba(91,141,239,0.15), rgba(127,255,212,0.2));
+  border-radius: 24px;
+  opacity: 0; filter: blur(24px);
+  transition: opacity 0.6s;
+  z-index: -1;
+}
+.product:hover .product-glow { opacity: 0.6; }
+
+/* ==== STAT NUMBER ANIM ==== */
+.stat-num {
+  font-family: 'Geist'; font-weight: 600;
+  letter-spacing: -0.04em;
+  background: var(--grad-cool);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ATMOSPHERIC LAYERS -->
+<div class="atmo"></div>
+<div class="grid-overlay"></div>
+<div class="noise"></div>
+
+<!-- =============================================================
+     1. NAVIGATION
+============================================================= -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-8 py-4 flex items-center justify-between">
+    <!-- LOGO -->
+    <a href="#top" class="flex items-center gap-2.5">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <defs>
+          <linearGradient id="logo-g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00E5FF"/>
+            <stop offset="100%" stop-color="#7FFFD4"/>
+          </linearGradient>
+        </defs>
+        <rect x="1" y="1" width="30" height="30" rx="8" fill="url(#logo-g)" fill-opacity="0.08" stroke="url(#logo-g)" stroke-width="1" stroke-opacity="0.3"/>
+        <path d="M8 10 L8 22 M14 10 C18 10 20 13 20 16 C20 19 18 22 14 22 M24 10 L24 22 M21 10 L27 22 M27 10 L21 22" stroke="url(#logo-g)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="display-bold text-[1.15rem] tracking-tight">IDX</span>
+    </a>
+
+    <!-- LINKS -->
+    <div class="hidden lg:flex items-center gap-9 text-[0.92rem] text-mist-200">
+      <a href="#capabilities" class="link-u">Solutions</a>
+      <a href="#products"     class="link-u">Products</a>
+      <a href="#method"       class="link-u">Methodology</a>
+      <a href="#industries"   class="link-u">Industries</a>
+      <a href="#about"        class="link-u">About</a>
+    </div>
+
+    <!-- CTA -->
+    <div class="flex items-center gap-3">
+      <a href="#contact" class="hidden md:inline-flex btn btn-primary text-[0.9rem]">
+        Book a consultation
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12m0 0L7 1m6 6L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+      <button id="menu-btn" class="lg:hidden p-2 text-mist-100" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="lg:hidden hidden px-5 pb-6 bg-ink-900/95 backdrop-blur-xl hairline-b">
+    <div class="flex flex-col">
+      <a href="#capabilities" class="py-3 hairline-b text-mist-200">Solutions</a>
+      <a href="#products"     class="py-3 hairline-b text-mist-200">Products</a>
+      <a href="#method"       class="py-3 hairline-b text-mist-200">Methodology</a>
+      <a href="#industries"   class="py-3 hairline-b text-mist-200">Industries</a>
+      <a href="#about"        class="py-3 hairline-b text-mist-200">About</a>
+      <a href="#contact" class="btn btn-primary text-sm mt-4 self-start">Book a consultation</a>
+    </div>
+  </div>
+</nav>
+
+<!-- =============================================================
+     2. HERO
+============================================================= -->
+<section id="top" class="relative z-10 pt-36 md:pt-44 pb-20 md:pb-32 overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-8">
+
+    <div class="grid lg:grid-cols-12 gap-12 items-start">
+
+      <!-- LEFT: Headline + copy + CTAs -->
+      <div class="lg:col-span-7">
+        <div class="tag reveal"><span class="w-1 h-1 rounded-full bg-cyan"></span>INTELLIGENT EXPERIENCE OS</div>
+
+        <h1 class="display mt-7 tt-hero reveal">
+          The <span class="gradient-text">operating system</span><br/>
+          for experience<br/>
+          intelligence.
+        </h1>
+
+        <p class="mt-8 text-lg md:text-xl text-mist-200 leading-relaxed max-w-xl reveal">
+          IDX fuses strategic consulting, AI platforms, and governance into one discipline — the intelligent layer between your operations and the people they serve.
+        </p>
+
+        <div class="mt-10 flex flex-wrap gap-3 reveal">
+          <a href="#contact"  class="btn btn-primary">
+            Book a consultation
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12m0 0L7 1m6 6L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+          <a href="#products" class="btn btn-ghost">
+            Explore the platform
+          </a>
+        </div>
+
+        <!-- Microspec line -->
+        <div class="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-mist-300 mono reveal">
+          <span class="flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-teal"></span> GOV-GRADE SECURITY</span>
+          <span class="flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-azure"></span> ARABIC-NATIVE NLU</span>
+          <span class="flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-cyan"></span> SOC-2 READY</span>
+          <span class="flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-mint"></span> AUDIT-TRACEABLE</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Live intelligent dashboard visual -->
+      <div class="lg:col-span-5 reveal">
+        <div class="relative">
+          <div class="product-glow"></div>
+          <div class="panel p-5 relative z-10">
+            <!-- Dashboard header -->
+            <div class="flex items-center justify-between mb-5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-cyan pulse-dot text-cyan"></span>
+                <span class="label">LIVE INTELLIGENCE</span>
+              </div>
+              <span class="tag-dim">IDX.OS · v2.4</span>
+            </div>
+
+            <!-- Stat row -->
+            <div class="grid grid-cols-3 gap-3 mb-5">
+              <div class="panel-solid p-3">
+                <div class="label text-[0.58rem] mb-1">SIGNALS</div>
+                <div class="display text-2xl">104k</div>
+                <div class="text-[10px] mono text-teal mt-1">▲ 22.1%</div>
+              </div>
+              <div class="panel-solid p-3">
+                <div class="label text-[0.58rem] mb-1">CSAT</div>
+                <div class="display text-2xl gradient-text">8.6</div>
+                <div class="text-[10px] mono text-teal mt-1">▲ 0.4</div>
+              </div>
+              <div class="panel-solid p-3">
+                <div class="label text-[0.58rem] mb-1">MATURITY</div>
+                <div class="display text-2xl">71</div>
+                <div class="text-[10px] mono text-mist-300 mt-1">/ 100</div>
+              </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="panel-solid p-4 mb-5">
+              <div class="flex items-center justify-between mb-3">
+                <div class="label text-[0.58rem]">SIGNAL INTELLIGENCE · 30d</div>
+                <div class="flex gap-1">
+                  <span class="w-2 h-2 rounded-full bg-cyan"></span>
+                  <span class="w-2 h-2 rounded-full bg-azure"></span>
+                  <span class="w-2 h-2 rounded-full bg-teal"></span>
+                </div>
+              </div>
+              <svg viewBox="0 0 340 120" class="w-full h-24">
+                <defs>
+                  <linearGradient id="hero-area" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#00E5FF" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <!-- Grid -->
+                <line x1="0" y1="30" x2="340" y2="30" stroke="#B8C1D9" stroke-opacity="0.05"/>
+                <line x1="0" y1="60" x2="340" y2="60" stroke="#B8C1D9" stroke-opacity="0.05"/>
+                <line x1="0" y1="90" x2="340" y2="90" stroke="#B8C1D9" stroke-opacity="0.05"/>
+
+                <path d="M0 90 L30 85 L60 80 L90 72 L120 68 L150 55 L180 58 L210 45 L240 40 L270 32 L300 28 L330 22 L340 18 L340 120 L0 120 Z" fill="url(#hero-area)"/>
+                <path d="M0 90 L30 85 L60 80 L90 72 L120 68 L150 55 L180 58 L210 45 L240 40 L270 32 L300 28 L330 22 L340 18" fill="none" stroke="#00E5FF" stroke-width="1.6" class="draw"/>
+                <circle cx="340" cy="18" r="3" fill="#00E5FF"/>
+
+                <!-- Azure line -->
+                <path d="M0 100 L30 98 L60 95 L90 92 L120 85 L150 82 L180 78 L210 72 L240 70 L270 65 L300 60 L330 58 L340 55" fill="none" stroke="#5B8DEF" stroke-width="1.4" class="draw" style="animation-delay:.3s"/>
+
+                <!-- Teal line -->
+                <path d="M0 105 L30 104 L60 100 L90 98 L120 93 L150 88 L180 85 L210 82 L240 75 L270 72 L300 68 L330 64 L340 60" fill="none" stroke="#00D9B2" stroke-width="1.4" class="draw" style="animation-delay:.6s"/>
+              </svg>
+            </div>
+
+            <!-- Topics pills -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="label text-[0.58rem]">EMERGING THEMES</span>
+                <span class="mono text-[10px] text-mist-300">14 detected</span>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="text-[11px] px-2.5 py-1 rounded-full bg-cyan/10 border border-cyan/30 text-cyan">wait_time · 34%</span>
+                <span class="text-[11px] px-2.5 py-1 rounded-full bg-azure/10 border border-azure/30 text-azure-soft">fees · 18%</span>
+                <span class="text-[11px] px-2.5 py-1 rounded-full bg-teal/10 border border-teal/30 text-teal-soft">empathy · 12%</span>
+                <span class="text-[11px] px-2.5 py-1 rounded-full bg-mist-400/10 border border-mist-400/20 text-mist-200">fcr</span>
+                <span class="text-[11px] px-2.5 py-1 rounded-full bg-mist-400/10 border border-mist-400/20 text-mist-200">escalation</span>
+              </div>
+            </div>
+
+            <!-- Action line -->
+            <div class="mt-4 pt-4 border-t border-mist-200/5 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-teal pulse-dot text-teal"></span>
+                <span class="text-xs text-mist-200">3 signals → action queue</span>
+              </div>
+              <span class="mono text-[10px] text-mist-300">Ω autonomous</span>
+            </div>
+          </div>
+
+          <!-- Floating chip top-right -->
+          <div class="absolute -top-4 -right-4 panel px-3 py-2 flex items-center gap-2 float-a z-20">
+            <span class="w-2 h-2 rounded-full bg-mint pulse-dot text-mint"></span>
+            <span class="label text-[0.55rem]">AI · AUTONOMOUS</span>
+          </div>
+          <!-- Floating chip bottom-left -->
+          <div class="absolute -bottom-4 -left-4 panel px-3 py-2 flex items-center gap-3 float-b z-20">
+            <div class="display gradient-text text-xl">+42%</div>
+            <div>
+              <div class="label text-[0.55rem]">RESPONSE</div>
+              <div class="text-[10px] text-mist-300">vs quarter</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================
+     3. TRUST POSITIONING
+============================================================= -->
+<section class="relative z-10 py-14 hairline-t hairline-b">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8 reveal-stack">
+      <div>
+        <div class="label mb-3 text-teal">STRATEGIC</div>
+        <div class="text-[0.95rem] text-mist-100 leading-snug">Boardroom-grade consulting across CX strategy, operating models, and service design.</div>
+      </div>
+      <div>
+        <div class="label mb-3 text-cyan">AI-NATIVE</div>
+        <div class="text-[0.95rem] text-mist-100 leading-snug">Platforms that listen, interpret, and act — Arabic and English, built for enterprise scale.</div>
+      </div>
+      <div>
+        <div class="label mb-3 text-azure">GOVERNED</div>
+        <div class="text-[0.95rem] text-mist-100 leading-snug">Quality, audit, and governance engineered for regulators and ministries.</div>
+      </div>
+      <div>
+        <div class="label mb-3 text-mint">MEASURED</div>
+        <div class="text-[0.95rem] text-mist-100 leading-snug">Performance systems that turn dashboards into decisions, not decoration.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================
+     4. CORE CAPABILITIES
+============================================================= -->
+<section id="capabilities" class="relative z-10 py-24 md:py-36">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-8">
+
+    <!-- Header -->
+    <div class="grid lg:grid-cols-12 gap-10 mb-16">
+      <div class="lg:col-span-5">
+        <div class="tag-dim mb-6 reveal">CAPABILITIES · 01</div>
+        <h2 class="display tt-section reveal">
+          One discipline.<br/>
+          <span class="gradient-text">Eight</span> capabilities.
+        </h2>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7 flex items-end">
+        <p class="text-lg text-mist-200 leading-relaxed reveal">
+          From the first stakeholder interview to the final regulator report — every capability IDX delivers is engineered to integrate. No silos, no islands.
+        </p>
+      </div>
+    </div>
+
+    <!-- Capability grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3 reveal-stack">
+
+      <!-- 1 -->
+      <div class="card panel p-6 cursor-pointer">
+        <div class="cap-icon mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 3l7.5 10.5L3 21M21 3l-7.5 10.5L21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="label text-[0.6rem] mb-2">01 · CONSULTING</div>
+        <h3 class="display text-xl mb-2">CX Strategy & Transformation</h3>
+        <p class="text-sm text-mist-300 leading-relaxed">North-star vision, operating blueprints, and the change architecture to make them real.</p>
+      </div>
+
+      <!-- 2 -->
+      <div class="card panel p-6 cursor-pointer">
+        <div class="cap-icon mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h3l3 10h10l2-7H7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1" fill="currentColor"/><circle cx="18" cy="20" r="1" fill="currentColor"/></svg>
+        </div>
+        <div class="label text-[0.6rem] mb-2">02 · DESIGN</div>
+        <h3 class="display text-xl mb-2">Journey & Service Design</h3>
+        <p class="text-sm text-mist-300 leading-relaxed">Human-centered journeys, service blueprints, and touchpoint architectures engineered to hold.</p>
+      </div>
+
+      <!-- 3 -->
+      <div class="card panel p-6 cursor-pointer">
+        <div class="cap-icon mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h10M4 19h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="18" cy="12" r="2" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div class="label text-[0.6rem] mb-2">03 · GOVERN</div>
+        <h3 class="display text-xl mb-2">Operating Model & Governance</h3>
+        <p class="text-sm text-mist-300 leading-relaxed">Decision rights, accountability fabric, and governance charters that survive audit and attrition.</p>
+      </div>
+
+      <!-- 4 -->
+      <div class="card panel p-6 cursor-pointer">
+        <div class="cap-icon mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 8c2 3 4 3 6 0s4-3 6 0 4 3 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M3 16c2 3 4 3 6 0s4-3 6 0 4 3 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/></svg>
+        </div>
+        <div class="label text-[0.6rem] mb-2">04 · LISTEN</div>
+        <h3 class="display text-xl mb-2">Voice of Customer Programs</h3>
+        <p class="text-sm text-mist-300 leading-relaxed">Omnichannel listening architectures — survey, voice, text, social — unified in a single signal spine.</p>
+      </div>
+
+      <!-- 5 -->
+      <div class="card panel p-6 cursor-pointer">
+        <div class="cap-icon mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="label text-[0.6rem] mb-2">05 · QUALITY</div>
+        <h3 class="display text-xl mb-2">Quality & Monitoring Systems</h3>
+        <p class="text-sm text-mist-300 leading-relaxed">Scorecards, calibration frameworks, and QA architectures that hold up to regulator scrutiny.</p>
+      </div>
+
+      <!-- 6 -->
+      <div class="card panel p-6 cursor-pointer">
+        <div class="cap-icon mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 21V3M3 21h18M7 17v-5M11 17v-8M15 17v-3M19 17v-11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="label text-[0.6rem] mb-2">06 · MEASURE</div>
+        <h3 class="display text-xl mb-2">BI & Performance Analytics</h3>
+        <p class="text-sm text-mist-300 leading-relaxed">Executive cockpits, KPI trees, and maturity indices engineered for decision velocity.</p>
+      </div>
+
+      <!-- 7 -->
+      <div class="card panel p-6 cursor-pointer">
+        <div class="cap-icon mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1L7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="label text-[0.6rem] mb-2">07 · AI</div>
+        <h3 class="display text-xl mb-2">AI-powered VOC</h3>
+        <p class="text-sm text-mist-300 leading-relaxed">Topic modeling, sentiment, causal clustering — Arabic-native inference that finds what surveys miss.</p>
+      </div>
+
+      <!-- 8 -->
+      <div class="card panel p-6 cursor-pointer">
+        <div class="cap-icon mb-5">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 19h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/></svg>
+        </div>
+        <div class="label text-[0.6rem] mb-2">08 · AUTO</div>
+        <h3 class="display text-xl mb-2">AI Quality Management</h3>
+        <p class="text-sm text-mist-300 leading-relaxed">From 3% sampling to 100% AI-graded interactions — calibrated, auditable, fair at scale.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================
+     5. PRODUCTS
+============================================================= -->
+<section id="products" class="relative z-10 py-24 md:py-36 hairline-t">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-8">
+
+    <!-- Header -->
+    <div class="grid lg:grid-cols-12 gap-10 mb-16">
+      <div class="lg:col-span-6">
+        <div class="tag mb-6 reveal"><span class="w-1 h-1 rounded-full bg-cyan"></span>IDX PRODUCTS · 02</div>
+        <h2 class="display tt-section reveal">
+          Four modules.<br/>
+          <span class="gradient-text">One intelligent</span><br/>
+          platform.
+        </h2>
+      </div>
+      <div class="lg:col-span-5 lg:col-start-8 flex items-end">
+        <p class="text-lg text-mist-200 leading-relaxed reveal">
+          Production-grade SaaS modules — deployable independently, unified when it matters. Every product speaks to every other through a single intelligence spine.
+        </p>
+      </div>
+    </div>
+
+    <!-- Products stack -->
+    <div class="space-y-5">
+
+      <!-- PRODUCT 01 · IDX VOC -->
+      <div class="product relative reveal">
+        <div class="product-glow"></div>
+        <div class="panel p-6 md:p-10 relative z-10">
+          <div class="grid lg:grid-cols-12 gap-8 items-center">
+            <!-- Copy -->
+            <div class="lg:col-span-5">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="label text-cyan">IDX · VOC</span>
+                <span class="tag-dim">/01</span>
+              </div>
+              <h3 class="display tt-sub mb-4">Voice of Customer<br/><span class="gradient-text">AI Platform</span></h3>
+              <p class="text-mist-200 leading-relaxed mb-6">
+                The intelligent listening spine. Unified signals from every channel, Arabic-native NLU, and closed-loop action routing — in one governed system.
+              </p>
+              <ul class="space-y-2.5 text-sm text-mist-200 mb-8">
+                <li class="flex gap-2"><span class="text-cyan mt-0.5">▸</span> Omnichannel ingestion: survey, voice, text, social</li>
+                <li class="flex gap-2"><span class="text-cyan mt-0.5">▸</span> Arabic + English sentiment & topic models</li>
+                <li class="flex gap-2"><span class="text-cyan mt-0.5">▸</span> Root-cause clustering and anomaly detection</li>
+                <li class="flex gap-2"><span class="text-cyan mt-0.5">▸</span> Closed-loop action workflows with SLA</li>
+                <li class="flex gap-2"><span class="text-cyan mt-0.5">▸</span> Regulator-grade audit trail</li>
+              </ul>
+              <a href="#" class="btn btn-ghost text-sm">Explore IDX · VOC <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10m0 0L7 2m4 4L7 10" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            </div>
+
+            <!-- UI mock -->
+            <div class="lg:col-span-7">
+              <div class="panel-solid p-5 relative overflow-hidden">
+                <!-- UI Header -->
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-mist-200/5">
+                  <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyan pulse-dot text-cyan"></span>
+                    <span class="label text-[0.58rem]">VOC STREAM · LIVE</span>
+                  </div>
+                  <span class="mono text-[10px] text-mist-300">104,812 signals · 30d</span>
+                </div>
+
+                <!-- Waterfall chart -->
+                <div class="relative mb-4">
+                  <svg viewBox="0 0 580 160" class="w-full h-32">
+                    <defs>
+                      <linearGradient id="voc-area" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.35"/>
+                        <stop offset="100%" stop-color="#00E5FF" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <line x1="0" y1="40" x2="580" y2="40" stroke="#B8C1D9" stroke-opacity="0.04"/>
+                    <line x1="0" y1="80" x2="580" y2="80" stroke="#B8C1D9" stroke-opacity="0.04"/>
+                    <line x1="0" y1="120" x2="580" y2="120" stroke="#B8C1D9" stroke-opacity="0.04"/>
+
+                    <path d="M0 110 L40 105 L80 100 L120 88 L160 92 L200 75 L240 78 L280 65 L320 58 L360 48 L400 42 L440 38 L480 30 L520 28 L580 22 L580 160 L0 160 Z" fill="url(#voc-area)"/>
+                    <path d="M0 110 L40 105 L80 100 L120 88 L160 92 L200 75 L240 78 L280 65 L320 58 L360 48 L400 42 L440 38 L480 30 L520 28 L580 22" fill="none" stroke="#00E5FF" stroke-width="1.6" class="draw"/>
+                    <circle cx="580" cy="22" r="3" fill="#00E5FF"/>
+                    <!-- Annotation marker -->
+                    <circle cx="280" cy="65" r="5" fill="none" stroke="#7FFFD4" stroke-width="1"/>
+                    <line x1="280" y1="58" x2="280" y2="30" stroke="#7FFFD4" stroke-width="0.8" stroke-dasharray="2 2"/>
+                    <text x="286" y="28" font-family="JetBrains Mono" font-size="8" fill="#7FFFD4">spike detected</text>
+                  </svg>
+                </div>
+
+                <!-- Topics + sentiment -->
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="panel p-3">
+                    <div class="label text-[0.55rem] mb-2">TOPICS</div>
+                    <div class="space-y-1.5">
+                      <div class="flex justify-between items-center">
+                        <span class="text-[10px] text-mist-200">wait_time</span>
+                        <div class="flex items-center gap-1.5"><div class="w-12 h-0.5 bg-mist-400/20 rounded"><div class="h-full bg-cyan rounded bar-grow" style="width:78%"></div></div><span class="mono text-[9px] text-mist-300">34%</span></div>
+                      </div>
+                      <div class="flex justify-between items-center">
+                        <span class="text-[10px] text-mist-200">fees</span>
+                        <div class="flex items-center gap-1.5"><div class="w-12 h-0.5 bg-mist-400/20 rounded"><div class="h-full bg-azure rounded bar-grow" style="width:42%; animation-delay:.1s"></div></div><span class="mono text-[9px] text-mist-300">18%</span></div>
+                      </div>
+                      <div class="flex justify-between items-center">
+                        <span class="text-[10px] text-mist-200">empathy</span>
+                        <div class="flex items-center gap-1.5"><div class="w-12 h-0.5 bg-mist-400/20 rounded"><div class="h-full bg-teal rounded bar-grow" style="width:30%; animation-delay:.2s"></div></div><span class="mono text-[9px] text-mist-300">12%</span></div>
+                      </div>
+                      <div class="flex justify-between items-center">
+                        <span class="text-[10px] text-mist-200">resolution</span>
+                        <div class="flex items-center gap-1.5"><div class="w-12 h-0.5 bg-mist-400/20 rounded"><div class="h-full bg-mint rounded bar-grow" style="width:22%; animation-delay:.3s"></div></div><span class="mono text-[9px] text-mist-300">9%</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel p-3">
+                    <div class="label text-[0.55rem] mb-2">SENTIMENT</div>
+                    <div class="flex items-end gap-2 h-16">
+                      <div class="flex-1 rounded-t bg-teal bar-grow" style="height:70%"></div>
+                      <div class="flex-1 rounded-t bg-mist-400/30 bar-grow" style="height:26%; animation-delay:.1s"></div>
+                      <div class="flex-1 rounded-t bg-azure bar-grow" style="height:14%; animation-delay:.2s"></div>
+                    </div>
+                    <div class="flex justify-between mt-2 text-[8px] mono text-mist-300">
+                      <span>+ POS</span><span>NEU</span><span>– NEG</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 02 · IDX QUALITY -->
+      <div class="product relative reveal">
+        <div class="product-glow"></div>
+        <div class="panel p-6 md:p-10 relative z-10">
+          <div class="grid lg:grid-cols-12 gap-8 items-center">
+            <!-- UI mock (LEFT this time for alternating rhythm) -->
+            <div class="lg:col-span-7 order-2 lg:order-1">
+              <div class="panel-solid p-5">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-mist-200/5">
+                  <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-teal pulse-dot text-teal"></span>
+                    <span class="label text-[0.58rem]">QUALITY · 100% COVERAGE</span>
+                  </div>
+                  <span class="mono text-[10px] text-mist-300">Q4 · today</span>
+                </div>
+
+                <!-- Scorecards -->
+                <div class="space-y-2 mb-4">
+                  <div class="panel p-3 flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-teal/15 border border-teal/30 grid place-items-center text-teal display text-sm">94</div>
+                    <div class="flex-1">
+                      <div class="text-xs text-mist-100">A. Al-Rashid</div>
+                      <div class="text-[10px] text-mist-300 mono">12 min · #482991 · empathy ✓ · resolution ✓</div>
+                    </div>
+                    <span class="mono text-[10px] text-teal">GOLD</span>
+                  </div>
+                  <div class="panel p-3 flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-cyan/15 border border-cyan/30 grid place-items-center text-cyan display text-sm">87</div>
+                    <div class="flex-1">
+                      <div class="text-xs text-mist-100">M. Hassan</div>
+                      <div class="text-[10px] text-mist-300 mono">8 min · #482847 · escalation ▲</div>
+                    </div>
+                    <span class="mono text-[10px] text-cyan">MET</span>
+                  </div>
+                  <div class="panel p-3 flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-azure/15 border border-azure/30 grid place-items-center text-azure display text-sm">72</div>
+                    <div class="flex-1">
+                      <div class="text-xs text-mist-100">N. Farouk</div>
+                      <div class="text-[10px] text-mist-300 mono">14 min · #482615 · coaching recommended</div>
+                    </div>
+                    <span class="mono text-[10px] text-azure">COACH</span>
+                  </div>
+                </div>
+
+                <!-- Bottom row -->
+                <div class="grid grid-cols-4 gap-3 pt-3 border-t border-mist-200/5">
+                  <div><div class="label text-[0.55rem] mb-1">GRADED</div><div class="display text-base">12.4k</div></div>
+                  <div><div class="label text-[0.55rem] mb-1">AVG</div><div class="display text-base gradient-text">86.4</div></div>
+                  <div><div class="label text-[0.55rem] mb-1">COACH</div><div class="display text-base">124</div></div>
+                  <div><div class="label text-[0.55rem] mb-1">CAL</div><div class="display text-base text-teal">0.91</div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 order-1 lg:order-2">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="label text-teal">IDX · QUALITY</span>
+                <span class="tag-dim">/02</span>
+              </div>
+              <h3 class="display tt-sub mb-4">Quality<br/><span class="gradient-text">AI System</span></h3>
+              <p class="text-mist-200 leading-relaxed mb-6">
+                From 3% sampling to 100% AI-graded interactions. Calibrated, auditable, fair — with coaching workflows the way humans actually learn.
+              </p>
+              <ul class="space-y-2.5 text-sm text-mist-200 mb-8">
+                <li class="flex gap-2"><span class="text-teal mt-0.5">▸</span> 100% interaction coverage (voice + text)</li>
+                <li class="flex gap-2"><span class="text-teal mt-0.5">▸</span> Custom scorecards, rubrics, and calibration</li>
+                <li class="flex gap-2"><span class="text-teal mt-0.5">▸</span> AI coaching recommendations per agent</li>
+                <li class="flex gap-2"><span class="text-teal mt-0.5">▸</span> Regulator-ready audit and appeal flow</li>
+                <li class="flex gap-2"><span class="text-teal mt-0.5">▸</span> Fairness metrics across cohorts</li>
+              </ul>
+              <a href="#" class="btn btn-ghost text-sm">Explore IDX · Quality <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10m0 0L7 2m4 4L7 10" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 03 · IDX INTELLIGENCE -->
+      <div class="product relative reveal">
+        <div class="product-glow"></div>
+        <div class="panel p-6 md:p-10 relative z-10">
+          <div class="grid lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-5">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="label text-azure">IDX · INTELLIGENCE</span>
+                <span class="tag-dim">/03</span>
+              </div>
+              <h3 class="display tt-sub mb-4">Intelligence<br/><span class="gradient-text">Dashboards</span></h3>
+              <p class="text-mist-200 leading-relaxed mb-6">
+                The executive cockpit. KPIs, maturity scores, emerging signals, and AI narrative — unified in one pane for decision velocity.
+              </p>
+              <ul class="space-y-2.5 text-sm text-mist-200 mb-8">
+                <li class="flex gap-2"><span class="text-azure mt-0.5">▸</span> 34-criteria CX maturity index</li>
+                <li class="flex gap-2"><span class="text-azure mt-0.5">▸</span> KPI trees with drill-down to root cause</li>
+                <li class="flex gap-2"><span class="text-azure mt-0.5">▸</span> AI-generated executive narrative</li>
+                <li class="flex gap-2"><span class="text-azure mt-0.5">▸</span> Arabic RTL and executive PDF export</li>
+                <li class="flex gap-2"><span class="text-azure mt-0.5">▸</span> Regulator and board-ready views</li>
+              </ul>
+              <a href="#" class="btn btn-ghost text-sm">Explore IDX · Intelligence <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10m0 0L7 2m4 4L7 10" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            </div>
+
+            <div class="lg:col-span-7">
+              <div class="panel-solid p-5">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-mist-200/5">
+                  <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-azure pulse-dot text-azure"></span>
+                    <span class="label text-[0.58rem]">EXECUTIVE COCKPIT</span>
+                  </div>
+                  <span class="mono text-[10px] text-mist-300">Q4 · board view</span>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-3 mb-4">
+                  <!-- Maturity ring -->
+                  <div class="panel p-4 flex items-center gap-4">
+                    <svg viewBox="0 0 80 80" width="76" height="76" class="flex-shrink-0">
+                      <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(184,193,217,0.08)" stroke-width="6"/>
+                      <circle cx="40" cy="40" r="32" fill="none" stroke="#00E5FF" stroke-width="6" stroke-linecap="round" stroke-dasharray="201" stroke-dashoffset="58" transform="rotate(-90 40 40)"/>
+                      <text x="40" y="44" text-anchor="middle" font-family="Geist" font-size="18" font-weight="600" fill="#E0E6F5">71</text>
+                    </svg>
+                    <div>
+                      <div class="label text-[0.55rem] mb-1">MATURITY</div>
+                      <div class="text-[10px] text-mist-300">Index · 34 criteria</div>
+                      <div class="text-[10px] text-teal mono mt-1">▲ +14 vs Q3</div>
+                    </div>
+                  </div>
+
+                  <!-- KPI grid -->
+                  <div class="panel p-4 space-y-1.5">
+                    <div class="flex items-center gap-2 text-[10px]"><span class="w-14 text-mist-300">Ops</span><div class="flex-1 h-1 bg-mist-400/20 rounded"><div class="h-full bg-cyan rounded bar-grow" style="width:82%"></div></div><span class="display w-6 text-right">82</span></div>
+                    <div class="flex items-center gap-2 text-[10px]"><span class="w-14 text-mist-300">Quality</span><div class="flex-1 h-1 bg-mist-400/20 rounded"><div class="h-full bg-teal rounded bar-grow" style="width:76%; animation-delay:.1s"></div></div><span class="display w-6 text-right">76</span></div>
+                    <div class="flex items-center gap-2 text-[10px]"><span class="w-14 text-mist-300">VOC</span><div class="flex-1 h-1 bg-mist-400/20 rounded"><div class="h-full bg-azure rounded bar-grow" style="width:64%; animation-delay:.2s"></div></div><span class="display w-6 text-right">64</span></div>
+                    <div class="flex items-center gap-2 text-[10px]"><span class="w-14 text-mist-300">Digital</span><div class="flex-1 h-1 bg-mist-400/20 rounded"><div class="h-full bg-mint rounded bar-grow" style="width:58%; animation-delay:.3s"></div></div><span class="display w-6 text-right">58</span></div>
+                    <div class="flex items-center gap-2 text-[10px]"><span class="w-14 text-mist-300">Gov</span><div class="flex-1 h-1 bg-mist-400/20 rounded"><div class="h-full bg-cyan rounded bar-grow" style="width:72%; animation-delay:.4s"></div></div><span class="display w-6 text-right">72</span></div>
+                  </div>
+                </div>
+
+                <!-- AI narrative -->
+                <div class="panel p-3">
+                  <div class="flex items-center gap-2 mb-2">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#00E5FF" stroke-width="2"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1L7 17M17 7l2.1-2.1" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <span class="label text-[0.55rem] text-cyan">AI NARRATIVE</span>
+                  </div>
+                  <p class="text-[11px] text-mist-200 leading-relaxed">
+                    Maturity trending <span class="text-teal">positive (+14 pts)</span>, driven by Quality automation and closed-loop VOC. <span class="text-azure">Digital service</span> remains the lagging dimension; recommend investment review for Q1.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 04 · IDX PERFORMANCE -->
+      <div class="product relative reveal">
+        <div class="product-glow"></div>
+        <div class="panel p-6 md:p-10 relative z-10">
+          <div class="grid lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-7 order-2 lg:order-1">
+              <div class="panel-solid p-5">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-mist-200/5">
+                  <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-mint pulse-dot text-mint"></span>
+                    <span class="label text-[0.58rem]">PERFORMANCE · STREAMING</span>
+                  </div>
+                  <span class="mono text-[10px] text-mist-300">48h · real-time</span>
+                </div>
+
+                <!-- Big metric -->
+                <div class="grid grid-cols-3 gap-3 mb-4">
+                  <div class="panel p-4">
+                    <div class="label text-[0.55rem] mb-1">FCR</div>
+                    <div class="display text-2xl gradient-text">78%</div>
+                    <svg viewBox="0 0 80 20" class="w-full h-5 mt-1"><path d="M0 15 L16 13 L32 12 L48 8 L64 6 L80 4" fill="none" stroke="#00E5FF" stroke-width="1" class="draw"/></svg>
+                  </div>
+                  <div class="panel p-4">
+                    <div class="label text-[0.55rem] mb-1">SLA</div>
+                    <div class="display text-2xl">94%</div>
+                    <svg viewBox="0 0 80 20" class="w-full h-5 mt-1"><path d="M0 12 L16 11 L32 9 L48 7 L64 5 L80 3" fill="none" stroke="#00D9B2" stroke-width="1" class="draw" style="animation-delay:.2s"/></svg>
+                  </div>
+                  <div class="panel p-4">
+                    <div class="label text-[0.55rem] mb-1">NPS</div>
+                    <div class="display text-2xl">+42</div>
+                    <svg viewBox="0 0 80 20" class="w-full h-5 mt-1"><path d="M0 14 L16 12 L32 10 L48 12 L64 8 L80 5" fill="none" stroke="#5B8DEF" stroke-width="1" class="draw" style="animation-delay:.4s"/></svg>
+                  </div>
+                </div>
+
+                <!-- Heatmap-ish grid -->
+                <div class="panel p-4">
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="label text-[0.55rem]">DEPARTMENT HEATMAP</span>
+                    <span class="mono text-[10px] text-mist-300">14 teams</span>
+                  </div>
+                  <div class="grid grid-cols-14 gap-1">
+                    <!-- 3 rows × 14 cols -->
+                    <div class="aspect-square rounded bg-teal/80"></div><div class="aspect-square rounded bg-teal/60"></div><div class="aspect-square rounded bg-teal/90"></div><div class="aspect-square rounded bg-teal/40"></div><div class="aspect-square rounded bg-mint/70"></div><div class="aspect-square rounded bg-teal/85"></div><div class="aspect-square rounded bg-azure/60"></div><div class="aspect-square rounded bg-cyan/70"></div><div class="aspect-square rounded bg-teal/75"></div><div class="aspect-square rounded bg-mint/55"></div><div class="aspect-square rounded bg-teal/90"></div><div class="aspect-square rounded bg-teal/70"></div><div class="aspect-square rounded bg-azure/50"></div><div class="aspect-square rounded bg-cyan/65"></div>
+                    <div class="aspect-square rounded bg-teal/60"></div><div class="aspect-square rounded bg-azure/70"></div><div class="aspect-square rounded bg-teal/80"></div><div class="aspect-square rounded bg-mint/55"></div><div class="aspect-square rounded bg-teal/75"></div><div class="aspect-square rounded bg-cyan/70"></div><div class="aspect-square rounded bg-teal/50"></div><div class="aspect-square rounded bg-azure/75"></div><div class="aspect-square rounded bg-teal/85"></div><div class="aspect-square rounded bg-mint/60"></div><div class="aspect-square rounded bg-teal/60"></div><div class="aspect-square rounded bg-teal/80"></div><div class="aspect-square rounded bg-azure/65"></div><div class="aspect-square rounded bg-cyan/75"></div>
+                    <div class="aspect-square rounded bg-azure/40"></div><div class="aspect-square rounded bg-teal/70"></div><div class="aspect-square rounded bg-cyan/55"></div><div class="aspect-square rounded bg-teal/90"></div><div class="aspect-square rounded bg-mint/60"></div><div class="aspect-square rounded bg-teal/80"></div><div class="aspect-square rounded bg-azure/50"></div><div class="aspect-square rounded bg-teal/65"></div><div class="aspect-square rounded bg-cyan/80"></div><div class="aspect-square rounded bg-teal/70"></div><div class="aspect-square rounded bg-mint/65"></div><div class="aspect-square rounded bg-teal/85"></div><div class="aspect-square rounded bg-azure/70"></div><div class="aspect-square rounded bg-cyan/60"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 order-1 lg:order-2">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="label text-mint">IDX · PERFORMANCE</span>
+                <span class="tag-dim">/04</span>
+              </div>
+              <h3 class="display tt-sub mb-4">Performance<br/><span class="gradient-text">Measurement Suite</span></h3>
+              <p class="text-mist-200 leading-relaxed mb-6">
+                Real-time operational intelligence. The telemetry layer that turns department metrics into organizational performance.
+              </p>
+              <ul class="space-y-2.5 text-sm text-mist-200 mb-8">
+                <li class="flex gap-2"><span class="text-mint mt-0.5">▸</span> Streaming KPIs: FCR, SLA, NPS, CSAT</li>
+                <li class="flex gap-2"><span class="text-mint mt-0.5">▸</span> Team + individual performance analytics</li>
+                <li class="flex gap-2"><span class="text-mint mt-0.5">▸</span> Benchmarking across functions & sectors</li>
+                <li class="flex gap-2"><span class="text-mint mt-0.5">▸</span> Anomaly detection on performance drift</li>
+                <li class="flex gap-2"><span class="text-mint mt-0.5">▸</span> Board & regulator reporting flows</li>
+              </ul>
+              <a href="#" class="btn btn-ghost text-sm">Explore IDX · Performance <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10m0 0L7 2m4 4L7 10" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================
+     6. HOW IDX WORKS
+============================================================= -->
+<section id="method" class="relative z-10 py-24 md:py-36 hairline-t">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-8">
+
+    <div class="grid lg:grid-cols-12 gap-10 mb-16">
+      <div class="lg:col-span-6">
+        <div class="tag-dim mb-6 reveal">OPERATING MODEL · 03</div>
+        <h2 class="display tt-section reveal">
+          Signal. Insight.<br/>
+          Decision. Action.<br/>
+          <span class="gradient-text">Impact.</span>
+        </h2>
+      </div>
+      <div class="lg:col-span-5 lg:col-start-8 flex items-end">
+        <p class="text-lg text-mist-200 leading-relaxed reveal">
+          Five stages. One closed loop. Every signal IDX captures must reach a measurable outcome — or it doesn't belong in the system.
+        </p>
+      </div>
+    </div>
+
+    <!-- Flow diagram -->
+    <div class="relative">
+      <!-- Connecting line (desktop only) -->
+      <svg class="hidden lg:block absolute top-[62px] left-0 right-0 w-full h-2 pointer-events-none" viewBox="0 0 1400 8" preserveAspectRatio="none">
+        <line x1="0" y1="4" x2="1400" y2="4" stroke="url(#flow-grad)" stroke-width="1" class="flow-line"/>
+        <defs>
+          <linearGradient id="flow-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#00E5FF"/>
+            <stop offset="50%"  stop-color="#5B8DEF"/>
+            <stop offset="100%" stop-color="#7FFFD4"/>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div class="grid lg:grid-cols-5 gap-5 reveal-stack">
+
+        <div class="relative">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="relative w-[52px] h-[52px] rounded-full bg-ink-800 border-2 border-cyan grid place-items-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 12h4l3-8 4 16 3-8h6" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="mono text-xs text-mist-300">01</div>
+          </div>
+          <h3 class="display text-xl mb-2 text-cyan">Signal</h3>
+          <p class="text-sm text-mist-300 leading-relaxed">Unified ingestion from every channel — survey, voice, text, social, operational data. No silos.</p>
+        </div>
+
+        <div class="relative">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="relative w-[52px] h-[52px] rounded-full bg-ink-800 border-2 border-azure grid place-items-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#5B8DEF" stroke-width="1.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M5 19l1.4-1.4M17.6 6.4L19 5" stroke="#5B8DEF" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="mono text-xs text-mist-300">02</div>
+          </div>
+          <h3 class="display text-xl mb-2 text-azure-soft">Insight</h3>
+          <p class="text-sm text-mist-300 leading-relaxed">AI inference layer — sentiment, topics, causal clustering, anomaly detection — all Arabic-native.</p>
+        </div>
+
+        <div class="relative">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="relative w-[52px] h-[52px] rounded-full bg-ink-800 border-2 border-teal grid place-items-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18M7 7l10 10M17 7L7 17" stroke="#00D9B2" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="mono text-xs text-mist-300">03</div>
+          </div>
+          <h3 class="display text-xl mb-2 text-teal-soft">Decision</h3>
+          <p class="text-sm text-mist-300 leading-relaxed">Prioritization, governance, decision rights, and workflow routing — with explainable AI recommendations.</p>
+        </div>
+
+        <div class="relative">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="relative w-[52px] h-[52px] rounded-full bg-ink-800 border-2 border-mint grid place-items-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="#7FFFD4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="mono text-xs text-mist-300">04</div>
+          </div>
+          <h3 class="display text-xl mb-2" style="color:#B4FFE5">Action</h3>
+          <p class="text-sm text-mist-300 leading-relaxed">Closed-loop routing with SLA, automation where it fits, human escalation where it matters.</p>
+        </div>
+
+        <div class="relative">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="relative w-[52px] h-[52px] rounded-full bg-ink-800 border-2 border-cyan grid place-items-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 21V3M3 21h18M7 17v-5M11 17v-8M15 17v-3M19 17v-11" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="mono text-xs text-mist-300">05</div>
+          </div>
+          <h3 class="display text-xl mb-2 text-cyan">Impact</h3>
+          <p class="text-sm text-mist-300 leading-relaxed">Measured outcomes — maturity uplift, performance gains, satisfaction deltas. Fed back into the loop.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================
+     7. INDUSTRIES / USE CASES
+============================================================= -->
+<section id="industries" class="relative z-10 py-24 md:py-36 hairline-t">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-8">
+
+    <div class="grid lg:grid-cols-12 gap-10 mb-16">
+      <div class="lg:col-span-6">
+        <div class="tag mb-6 reveal"><span class="w-1 h-1 rounded-full bg-cyan"></span>INDUSTRIES · 04</div>
+        <h2 class="display tt-section reveal">
+          Where IDX<br/>
+          changes the <span class="gradient-text">outcome.</span>
+        </h2>
+      </div>
+      <div class="lg:col-span-5 lg:col-start-8 flex items-end">
+        <p class="text-lg text-mist-200 leading-relaxed reveal">
+          High-stakes environments where exceptions are the rule and every signal carries institutional weight. The places consulting alone can't fix, and software alone can't either.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 reveal-stack">
+
+      <!-- 1. Government services -->
+      <article class="card panel p-6 cursor-pointer">
+        <div class="flex items-center justify-between mb-5">
+          <span class="tag-dim">GOV</span>
+          <span class="mono text-xs text-mist-300">01</span>
+        </div>
+        <h3 class="display text-2xl mb-3">Government services</h3>
+        <p class="text-sm text-mist-300 leading-relaxed mb-5">Beneficiary experience at national scale — Arabic-native, audit-defensible, policy-aligned.</p>
+        <div class="grid grid-cols-3 gap-2 pt-4 border-t border-mist-200/5">
+          <div><div class="display text-lg text-cyan">+38%</div><div class="label text-[0.55rem] mt-1">MATURITY</div></div>
+          <div><div class="display text-lg">-42%</div><div class="label text-[0.55rem] mt-1">SLA TIME</div></div>
+          <div><div class="display text-lg">34</div><div class="label text-[0.55rem] mt-1">CRITERIA</div></div>
+        </div>
+      </article>
+
+      <!-- 2. SMEs -->
+      <article class="card panel p-6 cursor-pointer">
+        <div class="flex items-center justify-between mb-5">
+          <span class="tag-dim">SME</span>
+          <span class="mono text-xs text-mist-300">02</span>
+        </div>
+        <h3 class="display text-2xl mb-3">SMEs</h3>
+        <p class="text-sm text-mist-300 leading-relaxed mb-5">Enterprise-grade CX intelligence for growth-stage companies — the discipline of a ministry, at the speed of a startup.</p>
+        <div class="grid grid-cols-3 gap-2 pt-4 border-t border-mist-200/5">
+          <div><div class="display text-lg text-teal">+35%</div><div class="label text-[0.55rem] mt-1">RETENTION</div></div>
+          <div><div class="display text-lg">-42%</div><div class="label text-[0.55rem] mt-1">CHURN</div></div>
+          <div><div class="display text-lg">4×</div><div class="label text-[0.55rem] mt-1">ROI</div></div>
+        </div>
+      </article>
+
+      <!-- 3. Contact centers -->
+      <article class="card panel p-6 cursor-pointer">
+        <div class="flex items-center justify-between mb-5">
+          <span class="tag-dim">OPS</span>
+          <span class="mono text-xs text-mist-300">03</span>
+        </div>
+        <h3 class="display text-2xl mb-3">Contact centers</h3>
+        <p class="text-sm text-mist-300 leading-relaxed mb-5">100% AI-graded interactions replacing sampling — with calibration, coaching, and executive visibility.</p>
+        <div class="grid grid-cols-3 gap-2 pt-4 border-t border-mist-200/5">
+          <div><div class="display text-lg text-azure">100%</div><div class="label text-[0.55rem] mt-1">COVERAGE</div></div>
+          <div><div class="display text-lg">+22%</div><div class="label text-[0.55rem] mt-1">FCR</div></div>
+          <div><div class="display text-lg">~1M</div><div class="label text-[0.55rem] mt-1">MONTHLY</div></div>
+        </div>
+      </article>
+
+      <!-- 4. Complaint management -->
+      <article class="card panel p-6 cursor-pointer">
+        <div class="flex items-center justify-between mb-5">
+          <span class="tag-dim">VOC</span>
+          <span class="mono text-xs text-mist-300">04</span>
+        </div>
+        <h3 class="display text-2xl mb-3">Complaint management</h3>
+        <p class="text-sm text-mist-300 leading-relaxed mb-5">Fragmented channels unified. Closed-loop action with SLA, escalation paths, and root-cause intelligence.</p>
+        <div class="grid grid-cols-3 gap-2 pt-4 border-t border-mist-200/5">
+          <div><div class="display text-lg text-mint">-55%</div><div class="label text-[0.55rem] mt-1">RESOLVE</div></div>
+          <div><div class="display text-lg">+29%</div><div class="label text-[0.55rem] mt-1">SATIS.</div></div>
+          <div><div class="display text-lg">-68%</div><div class="label text-[0.55rem] mt-1">ESCAL.</div></div>
+        </div>
+      </article>
+
+      <!-- 5. Service quality operations -->
+      <article class="card panel p-6 cursor-pointer">
+        <div class="flex items-center justify-between mb-5">
+          <span class="tag-dim">QUALITY</span>
+          <span class="mono text-xs text-mist-300">05</span>
+        </div>
+        <h3 class="display text-2xl mb-3">Service quality operations</h3>
+        <p class="text-sm text-mist-300 leading-relaxed mb-5">Standards, audits, and the AI-graded quality architecture that makes consistency a system property.</p>
+        <div class="grid grid-cols-3 gap-2 pt-4 border-t border-mist-200/5">
+          <div><div class="display text-lg text-cyan">3%→100%</div><div class="label text-[0.55rem] mt-1">SAMPLING</div></div>
+          <div><div class="display text-lg">0.91</div><div class="label text-[0.55rem] mt-1">CALIB.</div></div>
+          <div><div class="display text-lg">+14%</div><div class="label text-[0.55rem] mt-1">CONSIST.</div></div>
+        </div>
+      </article>
+
+      <!-- 6. Digital service environments -->
+      <article class="card panel p-6 cursor-pointer">
+        <div class="flex items-center justify-between mb-5">
+          <span class="tag-dim">DIGITAL</span>
+          <span class="mono text-xs text-mist-300">06</span>
+        </div>
+        <h3 class="display text-2xl mb-3">Digital service environments</h3>
+        <p class="text-sm text-mist-300 leading-relaxed mb-5">Portal and app experiences — friction mapping, behavior analytics, and the journey intelligence to act on both.</p>
+        <div class="grid grid-cols-3 gap-2 pt-4 border-t border-mist-200/5">
+          <div><div class="display text-lg text-teal">+31%</div><div class="label text-[0.55rem] mt-1">COMPLET.</div></div>
+          <div><div class="display text-lg">-48%</div><div class="label text-[0.55rem] mt-1">FRICTION</div></div>
+          <div><div class="display text-lg">+19%</div><div class="label text-[0.55rem] mt-1">ADOPT.</div></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================
+     8. INNOVATION / AI
+============================================================= -->
+<section class="relative z-10 py-24 md:py-36 hairline-t overflow-hidden">
+  <!-- Accent glow -->
+  <div class="absolute inset-0 pointer-events-none opacity-40">
+    <div class="absolute top-10 left-1/4 w-[500px] h-[500px] rounded-full blur-[120px] bg-cyan/15"></div>
+    <div class="absolute bottom-10 right-1/4 w-[400px] h-[400px] rounded-full blur-[120px] bg-azure/15"></div>
+  </div>
+
+  <div class="relative max-w-[1400px] mx-auto px-5 lg:px-8">
+
+    <div class="grid lg:grid-cols-12 gap-10 mb-16">
+      <div class="lg:col-span-6">
+        <div class="tag mb-6 reveal"><span class="w-1 h-1 rounded-full bg-cyan"></span>AI CORE · 05</div>
+        <h2 class="display tt-section reveal">
+          Intelligence<br/>
+          that <span class="gradient-text">compounds.</span>
+        </h2>
+      </div>
+      <div class="lg:col-span-5 lg:col-start-8 flex items-end">
+        <p class="text-lg text-mist-200 leading-relaxed reveal">
+          Every signal IDX captures sharpens the system. Every decision it routes becomes training data. Every outcome feeds back. Intelligence as a discipline, not a feature.
+        </p>
+      </div>
+    </div>
+
+    <!-- AI capabilities in stat cards -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3 mb-12 reveal-stack">
+
+      <div class="card panel p-6">
+        <div class="flex items-start justify-between mb-5">
+          <div class="cap-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12h4l3-8 4 16 3-8h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="mono text-[10px] text-mist-300">01</span>
+        </div>
+        <div class="display-bold text-4xl mb-1 gradient-text">Signal</div>
+        <div class="label mb-4">DETECTION</div>
+        <p class="text-sm text-mist-300 leading-relaxed mb-5">Arabic + English NLU engines trained on enterprise-scale Gulf datasets.</p>
+        <svg viewBox="0 0 200 40" class="w-full h-10">
+          <path d="M0 30 L20 28 L40 25 L60 18 L80 22 L100 12 L120 15 L140 8 L160 10 L180 4 L200 2" fill="none" stroke="#00E5FF" stroke-width="1.5" class="draw"/>
+        </svg>
+      </div>
+
+      <div class="card panel p-6">
+        <div class="flex items-start justify-between mb-5">
+          <div class="cap-icon" style="color:#5B8DEF; border-color: rgba(91,141,239,0.3);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" opacity="0.5"/></svg>
+          </div>
+          <span class="mono text-[10px] text-mist-300">02</span>
+        </div>
+        <div class="display-bold text-4xl mb-1 gradient-text">Sentiment</div>
+        <div class="label mb-4">ANALYSIS</div>
+        <p class="text-sm text-mist-300 leading-relaxed mb-5">Contextual sentiment beyond pos/neg — intent, emotion, urgency, and resolution signals.</p>
+        <div class="flex items-end gap-1 h-10">
+          <div class="flex-1 rounded-t bg-teal/70 bar-grow" style="height:60%"></div>
+          <div class="flex-1 rounded-t bg-teal/50 bar-grow" style="height:75%; animation-delay:.1s"></div>
+          <div class="flex-1 rounded-t bg-mist-400/30 bar-grow" style="height:30%; animation-delay:.2s"></div>
+          <div class="flex-1 rounded-t bg-azure/60 bar-grow" style="height:20%; animation-delay:.3s"></div>
+          <div class="flex-1 rounded-t bg-cyan/70 bar-grow" style="height:85%; animation-delay:.4s"></div>
+          <div class="flex-1 rounded-t bg-mint/60 bar-grow" style="height:45%; animation-delay:.5s"></div>
+          <div class="flex-1 rounded-t bg-teal/80 bar-grow" style="height:90%; animation-delay:.6s"></div>
+          <div class="flex-1 rounded-t bg-cyan/50 bar-grow" style="height:55%; animation-delay:.7s"></div>
+        </div>
+      </div>
+
+      <div class="card panel p-6">
+        <div class="flex items-start justify-between mb-5">
+          <div class="cap-icon" style="color:#00D9B2; border-color: rgba(0,217,178,0.3);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 3l7.5 10.5L3 21M21 3l-7.5 10.5L21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="mono text-[10px] text-mist-300">03</span>
+        </div>
+        <div class="display-bold text-4xl mb-1 gradient-text">Gaps</div>
+        <div class="label mb-4">IDENTIFICATION</div>
+        <p class="text-sm text-mist-300 leading-relaxed mb-5">Causal clustering surfaces service gaps before they become regulatory events.</p>
+        <svg viewBox="0 0 200 40" class="w-full h-10">
+          <g fill="#00D9B2">
+            <circle cx="20"  cy="25" r="3"/>
+            <circle cx="60"  cy="15" r="4"/>
+            <circle cx="100" cy="30" r="3"/>
+            <circle cx="140" cy="10" r="5"/>
+            <circle cx="180" cy="20" r="3"/>
+          </g>
+          <path d="M20 25 L60 15 L100 30 L140 10 L180 20" fill="none" stroke="#00D9B2" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>
+        </svg>
+      </div>
+
+      <div class="card panel p-6">
+        <div class="flex items-start justify-between mb-5">
+          <div class="cap-icon" style="color:#7FFFD4; border-color: rgba(127,255,212,0.3);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="mono text-[10px] text-mist-300">04</span>
+        </div>
+        <div class="display-bold text-4xl mb-1 gradient-text">Auto-QA</div>
+        <div class="label mb-4">AUTOMATION</div>
+        <p class="text-sm text-mist-300 leading-relaxed mb-5">Every interaction scored, fairly, at audit-grade — 100% coverage replacing 3% sampling.</p>
+        <div class="flex items-center gap-2 pt-2">
+          <div class="w-10 h-10 rounded-full border-2 border-mint grid place-items-center">
+            <span class="display text-sm" style="color:#7FFFD4;">100</span>
+          </div>
+          <div class="flex-1">
+            <div class="h-1 bg-mist-400/20 rounded"><div class="h-full bg-mint rounded bar-grow" style="width:100%"></div></div>
+            <div class="label text-[0.5rem] mt-1">COVERAGE %</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom row: 3 more AI capabilities as wide cards -->
+    <div class="grid md:grid-cols-3 gap-3 reveal-stack">
+      <div class="card panel p-5 flex items-center gap-4">
+        <div class="cap-icon flex-shrink-0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div>
+          <div class="label mb-1">DECISION SUPPORT</div>
+          <div class="text-sm text-mist-100 leading-snug">Explainable AI recommendations, ranked by confidence and impact.</div>
+        </div>
+      </div>
+      <div class="card panel p-5 flex items-center gap-4">
+        <div class="cap-icon flex-shrink-0" style="color:#5B8DEF; border-color: rgba(91,141,239,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 19V5l8 6 8-6v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="label mb-1">EXECUTIVE NARRATIVE</div>
+          <div class="text-sm text-mist-100 leading-snug">Auto-generated briefs in Arabic + English, board-ready.</div>
+        </div>
+      </div>
+      <div class="card panel p-5 flex items-center gap-4">
+        <div class="cap-icon flex-shrink-0" style="color:#00D9B2; border-color: rgba(0,217,178,0.3);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12h18M12 3v18M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div>
+          <div class="label mb-1">OPS × EXPERIENCE</div>
+          <div class="text-sm text-mist-100 leading-snug">Connects operational telemetry with experience signals — one source of truth.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================
+     9. PROOF / OUTCOMES
+============================================================= -->
+<section class="relative z-10 py-24 md:py-36 hairline-t">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-8">
+
+    <div class="grid lg:grid-cols-12 gap-10 mb-16">
+      <div class="lg:col-span-6">
+        <div class="tag-dim mb-6 reveal">BUSINESS VALUE · 06</div>
+        <h2 class="display tt-section reveal">
+          The numbers<br/>
+          organizations <span class="gradient-text">report back.</span>
+        </h2>
+      </div>
+      <div class="lg:col-span-5 lg:col-start-8 flex items-end">
+        <p class="text-sm text-mist-300 leading-relaxed reveal mono">
+          Illustrative outcomes aggregated from representative program engagements — directional, not contractual.
+        </p>
+      </div>
+    </div>
+
+    <!-- Proof grid -->
+    <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-3 reveal-stack">
+
+      <div class="panel p-6">
+        <div class="stat-num text-5xl md:text-6xl mb-2">3×</div>
+        <div class="label mb-2">FASTER</div>
+        <div class="text-sm text-mist-200 leading-snug">Signal-to-decision cycle time.</div>
+      </div>
+
+      <div class="panel p-6">
+        <div class="stat-num text-5xl md:text-6xl mb-2">100%</div>
+        <div class="label mb-2">COVERAGE</div>
+        <div class="text-sm text-mist-200 leading-snug">AI-graded interactions vs. 3% sampling.</div>
+      </div>
+
+      <div class="panel p-6">
+        <div class="stat-num text-5xl md:text-6xl mb-2">+38</div>
+        <div class="label mb-2">MATURITY</div>
+        <div class="text-sm text-mist-200 leading-snug">Points gained on CX maturity index.</div>
+      </div>
+
+      <div class="panel p-6">
+        <div class="stat-num text-5xl md:text-6xl mb-2">-55%</div>
+        <div class="label mb-2">RESOLUTION</div>
+        <div class="text-sm text-mist-200 leading-snug">Reduction in complaint resolve time.</div>
+      </div>
+
+      <div class="panel p-6">
+        <div class="stat-num text-5xl md:text-6xl mb-2">0</div>
+        <div class="label mb-2">AUDIT FLAGS</div>
+        <div class="text-sm text-mist-200 leading-snug">Regulator audits post-deployment.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================
+     10. FINAL CTA
+============================================================= -->
+<section id="contact" class="relative z-10 py-24 md:py-36 overflow-hidden">
+  <!-- Background glow -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full blur-[140px] opacity-30 bg-gradient-to-br from-cyan via-azure to-teal"></div>
+  </div>
+
+  <div class="relative max-w-[1200px] mx-auto px-5 lg:px-8">
+
+    <div class="text-center mb-16">
+      <div class="tag mb-6 reveal inline-flex"><span class="w-1 h-1 rounded-full bg-cyan"></span>ENGAGE</div>
+      <h2 class="display tt-section mb-6 reveal">
+        Let's architect<br/>
+        <span class="gradient-text">your intelligence layer.</span>
+      </h2>
+      <p class="text-lg text-mist-200 max-w-xl mx-auto reveal">
+        Whether you're designing a national program or modernizing a single operation — begin with a single conversation. We'll tell you straight if there's a fit.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-10 items-start reveal">
+
+      <!-- Info side -->
+      <div class="lg:col-span-4 space-y-8">
+        <div>
+          <div class="label mb-3">EMAIL</div>
+          <a href="mailto:hello@idx.sa" class="display text-2xl link-u">hello@idx.sa</a>
+        </div>
+        <div>
+          <div class="label mb-3">LOCATION</div>
+          <div class="display text-2xl">Riyadh <span class="text-mist-400">·</span> Cairo</div>
+        </div>
+        <div>
+          <div class="label mb-3">RESPONSE</div>
+          <div class="text-mist-100">Within 48 hours, always.</div>
+        </div>
+        <div>
+          <div class="label mb-3">LANGUAGES</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="tag-dim">Arabic</span>
+            <span class="tag-dim">English</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form side -->
+      <div class="lg:col-span-8">
+        <div class="panel p-6 md:p-8">
+          <form id="idx-form" class="space-y-4">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="label text-[0.6rem] block mb-2">NAME</label>
+                <input type="text" class="input" placeholder="Full name" required />
+              </div>
+              <div>
+                <label class="label text-[0.6rem] block mb-2">ORGANIZATION</label>
+                <input type="text" class="input" placeholder="Ministry / Company" required />
+              </div>
+            </div>
+            <div>
+              <label class="label text-[0.6rem] block mb-2">EMAIL</label>
+              <input type="email" class="input" placeholder="you@organization.sa" required />
+            </div>
+            <div>
+              <label class="label text-[0.6rem] block mb-2">ENGAGEMENT INTEREST</label>
+              <select class="input">
+                <option>CX Strategy & Operating Model</option>
+                <option>Voice of Customer Platform</option>
+                <option>AI Quality Management</option>
+                <option>Intelligence Dashboards / BI</option>
+                <option>Performance Measurement Suite</option>
+                <option>Full Transformation Program</option>
+                <option>Other — let's discuss</option>
+              </select>
+            </div>
+            <div>
+              <label class="label text-[0.6rem] block mb-2">CONTEXT</label>
+              <textarea class="input" rows="3" placeholder="What are you trying to solve?"></textarea>
+            </div>
+            <div class="flex items-center justify-between gap-4 pt-3">
+              <p class="text-xs text-mist-300 max-w-xs">By submitting you agree to IDX contacting you about this inquiry. No spam, no funnels.</p>
+              <button type="submit" class="btn btn-cyan">
+                Start the conversation
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12m0 0L7 1m6 6L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          </form>
+
+          <div id="idx-form-success" class="hidden text-center py-10">
+            <div class="w-14 h-14 rounded-full bg-cyan/15 border border-cyan grid place-items-center mx-auto mb-5">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="#00E5FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="display text-2xl mb-2">Signal received.</div>
+            <p class="text-mist-200">We'll be in touch shortly.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================
+     FOOTER
+============================================================= -->
+<footer id="about" class="relative z-10 py-16 hairline-t">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-8">
+
+    <!-- Big wordmark reprise -->
+    <div class="display-bold leading-[0.85] tracking-tighter mb-12 gradient-text glow-shift" style="font-size: clamp(4rem, 18vw, 18rem);">
+      IDX
+    </div>
+
+    <div class="grid md:grid-cols-12 gap-8 mb-12 pt-8 hairline-t">
+
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-2.5 mb-5">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <rect x="1" y="1" width="30" height="30" rx="8" fill="url(#logo-g)" fill-opacity="0.08" stroke="url(#logo-g)" stroke-width="1" stroke-opacity="0.3"/>
+            <path d="M8 10 L8 22 M14 10 C18 10 20 13 20 16 C20 19 18 22 14 22 M24 10 L24 22 M21 10 L27 22 M27 10 L21 22" stroke="url(#logo-g)" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          </svg>
+          <span class="display-bold text-lg">IDX</span>
+        </div>
+        <p class="text-mist-200 text-sm leading-relaxed max-w-sm mb-4">
+          The operating system for customer and beneficiary experience. Strategic consulting, AI platforms, and governance — one governed discipline.
+        </p>
+        <div class="flex gap-3">
+          <a href="#" class="w-9 h-9 rounded-full border border-mist-200/10 grid place-items-center text-mist-300 hover:text-cyan hover:border-cyan transition" aria-label="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zm7.28 0h4.37v1.92h.06c.61-1.15 2.1-2.37 4.32-2.37 4.62 0 5.47 3.04 5.47 7v7.45h-4.56v-6.6c0-1.58-.03-3.6-2.2-3.6-2.2 0-2.54 1.72-2.54 3.5v6.7H7.5V8z"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full border border-mist-200/10 grid place-items-center text-mist-300 hover:text-cyan hover:border-cyan transition" aria-label="X">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21.5l-7.43 8.488L23 22h-6.86l-5.37-7.02L4.6 22H1.342l7.944-9.078L1 2h7.04l4.852 6.416L18.244 2zm-1.163 18h1.832L7.005 3.862H5.04L17.08 20z"/></svg>
+          </a>
+          <a href="mailto:hello@idx.sa" class="w-9 h-9 rounded-full border border-mist-200/10 grid place-items-center text-mist-300 hover:text-cyan hover:border-cyan transition" aria-label="Email">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="md:col-span-2">
+        <div class="label mb-4">PRODUCTS</div>
+        <ul class="space-y-2.5 text-sm text-mist-200">
+          <li><a href="#products" class="link-u">IDX · VOC</a></li>
+          <li><a href="#products" class="link-u">IDX · Quality</a></li>
+          <li><a href="#products" class="link-u">IDX · Intelligence</a></li>
+          <li><a href="#products" class="link-u">IDX · Performance</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-2">
+        <div class="label mb-4">SOLUTIONS</div>
+        <ul class="space-y-2.5 text-sm text-mist-200">
+          <li><a href="#capabilities" class="link-u">Strategy</a></li>
+          <li><a href="#capabilities" class="link-u">Design</a></li>
+          <li><a href="#capabilities" class="link-u">Governance</a></li>
+          <li><a href="#capabilities" class="link-u">Analytics</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-3">
+        <div class="label mb-4">COMPANY</div>
+        <ul class="space-y-2.5 text-sm text-mist-200">
+          <li><a href="#method" class="link-u">Methodology</a></li>
+          <li><a href="#industries" class="link-u">Industries</a></li>
+          <li><a href="#contact" class="link-u">Contact</a></li>
+          <li class="text-mist-300">hello@idx.sa</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-8 hairline-t text-xs text-mist-300">
+      <div class="mono">© 2026 IDX — Intelligent Digital Experiences.</div>
+      <div class="flex items-center gap-6">
+        <a href="#" class="link-u">Privacy</a>
+        <a href="#" class="link-u">Terms</a>
+        <a href="#" class="link-u">Security</a>
+        <span class="mono">v2.0 · RUH</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- =============================================================
+     SCRIPTS
+============================================================= -->
+<script>
+/* Nav scroll state */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 30) nav.classList.add('nav-scrolled');
+  else nav.classList.remove('nav-scrolled');
+});
+
+/* Mobile menu */
+const menuBtn = document.getElementById('menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+/* Reveal on scroll */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .reveal-stack').forEach(el => io.observe(el));
+
+/* Card hover spotlight */
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+  });
+});
+
+/* Form */
+const form = document.getElementById('idx-form');
+const formSuccess = document.getElementById('idx-form-success');
+form?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  form.style.display = 'none';
+  formSuccess.classList.remove('hidden');
+});
+</script>
+
+</body>
+</html>
